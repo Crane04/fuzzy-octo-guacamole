@@ -1,13 +1,17 @@
-import { StyleSheet, View, SafeAreaView } from "react-native";
+import { StyleSheet, View, SafeAreaView, StatusBar } from "react-native";
 
-const Container = ({ children }) => {
-  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+const Container = ({ children, bg }) => {
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: bg || "#ffffff" }]}>
+      <StatusBar backgroundColor={bg}/>
+      {children}
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
-    flex: 1
+    flex: 1,
   },
 });
 

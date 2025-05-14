@@ -1,7 +1,8 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-const BackBtn = () => {
+import Text from "./Text";
+const BackBtn = ({ title }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -12,19 +13,18 @@ const BackBtn = () => {
         }
       }}
     >
-      <MaterialIcons name="keyboard-backspace" color={"#fff"} size={24} />
+      <MaterialIcons name="keyboard-backspace" color={"#000"} size={24} />
+      <Text>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   backBtn: {
-    backgroundColor: "#7F38FF",
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
     alignItems: "center",
-    borderRadius: 100
+    marginBottom: 20,
+    flexDirection: "row",
+    fontFamily: "OpenSans_600SemiBold",
   },
 });
 

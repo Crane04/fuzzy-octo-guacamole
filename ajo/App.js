@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignUp from "./src/screens/SignUp";
 import SignIn from "./src/screens/SignIn";
-import AppLoading from "expo-app-loading";
+import Home from "./src/screens/Home";
+import Tabs from "./src/components/Tabs";
+import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
   OpenSans_300Light,
@@ -23,7 +25,8 @@ import {
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  let [fontsLoaded] = useFonts({
+  // Load fonts
+  const [fontsLoaded] = useFonts({
     OpenSans_300Light,
     OpenSans_400Regular,
     OpenSans_500Medium,
@@ -38,12 +41,26 @@ const App = () => {
     OpenSans_800ExtraBold_Italic,
   });
 
+  // Manage splash screen visibility
+  useEffect(() => {
+    const prepareSplashScreen = async () => {
+      if (!fontsLoaded) {
+        await SplashScreen.preventAutoHideAsync(); // Keep splash screen visible
+      } else {
+        await SplashScreen.hideAsync(); // Hide splash screen once fonts are loaded
+      }
+    };
+    prepareSplashScreen();
+  }, [fontsLoaded]);
+
+  // Fallback UI while fonts are loading
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null; // Or a custom loading component
   }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialState="SignUp">
+      <Stack.Navigator initialRouteName="Tabs">
         <Stack.Screen
           name="SignUp"
           component={SignUp}
@@ -53,6 +70,11 @@ const App = () => {
           name="SignIn"
           component={SignIn}
           options={{ title: "Sign In", headerShown: false }}
+        />
+        <Stack.Screen
+          name="Tabs"
+          component={Tabs}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

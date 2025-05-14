@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
 } from "react-native";
 import Text from "../components/Text";
 import Button from "../components/Button";
@@ -30,7 +31,15 @@ const SignInScreen = ({ navigation }) => {
         onPress={Keyboard.dismiss}
       >
         <View style={styles.container}>
-          <BackBtn />
+          <View style={styles.imageContainer}>
+            <Image
+              source={require("../../assets/ajo-phone.png")}
+              style={{ height: 190, width: 242 }}
+              resize="contain"
+            />
+          </View>
+
+          {/* <BackBtn /> */}
           <Text style={styles.header}>Log In to Your Account</Text>
           <Input
             label={"Email address"}
@@ -66,6 +75,7 @@ export const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
+
   },
   header: {
     textAlign: "center",
@@ -87,6 +97,10 @@ export const styles = StyleSheet.create({
   authText: {
     color: "#7F38FF",
   },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: "center"
+  }
 });
 
 export default SignInScreen;
